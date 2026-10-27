@@ -2,12 +2,11 @@
 
 The Chrome offline dino game, underwater and in blue: the seabed scrolls by
 like the dino's ground, and the whale swims through, rising over tall kelp and
-dipping under jellyfish, trailing bubbles. The scoreboard is real: fish fed by
-visitors on the left; on the right HI is my best day and the score rolls up to
-this year's contributions. The dark theme is the game's night mode, with a moon.
+dipping under jellyfish, trailing bubbles. The dark theme is the game's night
+mode, with a moon above the surface.
 """
 
-from pixel import FISH, FONT, THEMES, WHALE, bitmap, mono_whale, rect, svg, text, text_width
+from pixel import THEMES, WHALE, bitmap, mono_whale, rect, svg
 
 W, H = 900, 180
 PX = 4  # sprite pixel size
@@ -86,46 +85,7 @@ def swim_css():
     return f"@keyframes depth {{ {body} }}"
 
 
-COUNT_UP_S = 3
-CLOUD_X = (150, W - 350)
-
-
-def odometer(p, x, y, s, value, prefix):
-    """Five digits that roll up from 00000 to `value` once, then hold.
-
-    Each digit is a 0-9 strip scrolled under a clip with steps(10); a fractional
-    iteration count leaves every strip parked on its final digit.
-    """
-    slot = 8 * s
-    parts, css = [], []
-    for k in range(5):
-        dx = x + k * 6 * s
-        digits = []
-        for d in range(10):
-            digits += bitmap(FONT[str(d)], dx, y + d * slot, s, p["fg"])
-        cycles = value / 10 ** (5 - k)
-        if cycles:
-            css.append(f".{prefix}{k} {{ animation: odo {COUNT_UP_S / cycles:.4f}s steps(10) {cycles + 1e-4:.4f} forwards; }}")
-        parts.append(
-            f'<clipPath id="{prefix}c{k}"><rect x="{dx}" y="{y}" width="{5 * s}" height="{7 * s}"/></clipPath>'
-            f'<g clip-path="url(#{prefix}c{k})"><g class="{prefix}{k}">{"".join(digits)}</g></g>'
-        )
-    return "".join(parts), "\n".join(css)
-
-
-def scoreboard(p, stats, s=3):
-    """Top left: fish fed so far. Top right: HI = best day, then the year's contributions."""
-    parts = bitmap(FISH, 20, 14, s, p["fg"])
-    parts += text(f"X{min(stats['fed'], 999):03d}", 20 + 10 * s + 6, 12, s, p["muted"])
-    x = W - 20 - text_width("HI 00000 00000", s)
-    parts += text(f"HI {min(stats['best'], 99999):05d}", x, 12, s, p["muted"])
-    total, css = odometer(p, x + 9 * 6 * s, 12, s, min(stats["total"], 99999), "t")
-    css += f"\n@keyframes odo {{ to {{ transform: translateY(-{10 * 8 * s}px); }} }}"
-    return "".join(parts) + total, css
-
-
-def render(theme, stats):
-    """stats: best (max contributions in a day), total (contributions this year), fed (fish fed)."""
+def render(theme):
     p = THEMES[theme]
     swim = "".join(
         f'<g class="alt a{i}">{"".join(bitmap(mono_whale(i == 1), WHALE_X, CRUISE_Y, PX, p["fg"]))}</g>'
@@ -139,16 +99,13 @@ def render(theme, stats):
     clouds = []
     for dx in (0, W):
         clouds += bitmap(CLOUD, 200 + dx, 10, 2, p["soft"]) + bitmap(CLOUD, 470 + dx, 22, 2, p["soft"])
-    # clouds drift only through the middle of the sky so they never cross the scoreboards
-    sky = [f'<clipPath id="sky"><rect x="{CLOUD_X[0]}" y="0" width="{CLOUD_X[1] - CLOUD_X[0]}" height="{SURFACE}"/></clipPath>'
-           f'<g clip-path="url(#sky)"><g class="clouds">{"".join(clouds)}</g></g>']
+    sky = [f'<g class="clouds">{"".join(clouds)}</g>']
     if theme == "dark":
         sky += bitmap(MOON, 330, 10, 3, p["fg"])
-    board, board_css = scoreboard(p, stats)
 
     parts = [
         rect(0, SURFACE, W, SEABED - SURFACE, p["water"]),
-        *sky, board, surface(p), strip(p),
+        *sky, surface(p), strip(p),
         f'<g class="depth"><g class="bob">{swim}{bubbles}</g></g>',
     ]
     style = "\n".join([
@@ -165,6 +122,5 @@ def render(theme, stats):
         "@keyframes alt { 0% { opacity: 1; } 50% { opacity: 0; } }",
         ".bubble { opacity: 0; animation: bubble 1.8s linear infinite; }",
         "@keyframes bubble { 0% { opacity: 1; transform: translate(0, 0); } 100% { opacity: 0; transform: translate(10px, -34px); } }",
-        board_css,
     ])
     return svg(W, H, "A pixel whale swimming through the Chrome dino game", style, parts)
