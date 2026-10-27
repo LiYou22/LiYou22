@@ -24,7 +24,7 @@ you li · cs @ nyu courant
 ml systems · accelerator kernels · agents · basketball · league of legends
 
 <b>❯ cat fun_fact.txt</b>
-the whale is a carp in disguise. 🐟
+the carp is a whale in disguise. 🐋
 
 <b>❯ ls links/</b>
 <a href="https://www.linkedin.com/in/you-li-b4a021274/">linkedin</a>
