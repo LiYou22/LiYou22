@@ -15,13 +15,13 @@
   </picture>
 </p>
 
-<pre>
-$ whoami
-you li · cs @ nyu courant
-$ cat interests.txt
-ml systems · accelerator kernels · agents · basketball · league of legends
-$ cat fun_fact.txt
-the whale is a carp in disguise. 🐟
-$ ls links/
-<a href="https://www.linkedin.com/in/you-li-b4a021274/">linkedin</a>
-</pre>
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/terminal-dark.svg">
+    <img alt="whoami: you li, cs @ nyu courant. interests: ml systems, accelerator kernels, agents, basketball, league of legends. fun fact: the whale is a carp in disguise." src="assets/terminal-light.svg" width="760">
+  </picture>
+</p>
+
+<p align="center">
+  <code>links</code> &nbsp; <a href="https://www.linkedin.com/in/you-li-b4a021274/">linkedin</a>
+</p>
