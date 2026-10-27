@@ -2,13 +2,17 @@
 
 The Chrome offline dino game, underwater and in blue: the seabed scrolls by
 like the dino's ground, and the whale swims through, rising over tall kelp and
-dipping under jellyfish, trailing bubbles. The dark theme is the game's night
-mode, with a moon above the surface.
+dipping under jellyfish, trailing bubbles. A one-line intro sits in the sky in
+the Press Start 2P pixel font. The dark theme is the game's night mode, with a
+moon above the surface.
 """
 
+from font8 import FONT8
 from pixel import THEMES, WHALE, bitmap, mono_whale, rect, svg
 
 W, H = 900, 180
+TITLE = "CS @ NYU COURANT"
+TITLE_S = 2  # title pixel size
 PX = 4  # sprite pixel size
 SURFACE, SEABED = 44, 160
 SPEED = 180  # px per second; the seabed strip repeats every W px
@@ -96,12 +100,20 @@ def render(theme):
         f'<g class="bubble" style="animation-delay:{i * 0.6:.1f}s">{rect(head_x + i * 5, CRUISE_Y + 6, 4, 4, p["bubble"])}</g>'
         for i in range(3)
     )
+    title = []
+    for i, ch in enumerate(TITLE):
+        title += bitmap(FONT8[ch], 20 + i * 8 * TITLE_S, 14, TITLE_S, p["fg"])
+    sky_x = 20 + len(TITLE) * 8 * TITLE_S + 24  # clouds and moon stay right of the title
     clouds = []
     for dx in (0, W):
-        clouds += bitmap(CLOUD, 200 + dx, 10, 2, p["soft"]) + bitmap(CLOUD, 470 + dx, 22, 2, p["soft"])
-    sky = [f'<g class="clouds">{"".join(clouds)}</g>']
+        clouds += bitmap(CLOUD, sky_x + 60 + dx, 10, 2, p["soft"]) + bitmap(CLOUD, sky_x + 300 + dx, 22, 2, p["soft"])
+    sky = [
+        *title,
+        f'<clipPath id="sky"><rect x="{sky_x}" y="0" width="{W - sky_x}" height="{SURFACE}"/></clipPath>'
+        f'<g clip-path="url(#sky)"><g class="clouds">{"".join(clouds)}</g></g>',
+    ]
     if theme == "dark":
-        sky += bitmap(MOON, 330, 10, 3, p["fg"])
+        sky += bitmap(MOON, W - 60, 10, 3, p["fg"])
 
     parts = [
         rect(0, SURFACE, W, SEABED - SURFACE, p["water"]),
@@ -123,4 +135,4 @@ def render(theme):
         ".bubble { opacity: 0; animation: bubble 1.8s linear infinite; }",
         "@keyframes bubble { 0% { opacity: 1; transform: translate(0, 0); } 100% { opacity: 0; transform: translate(10px, -34px); } }",
     ])
-    return svg(W, H, "A pixel whale swimming through the Chrome dino game", style, parts)
+    return svg(W, H, f"{TITLE.lower()}: a pixel whale swimming through the Chrome dino game", style, parts)
