@@ -21,10 +21,10 @@
 you li · cs @ nyu courant
 
 <b>❯ cat interests.txt</b>
-ml systems · accelerator kernels · agents · basketball · league of legends
+ml systems · accelerator kernels · agents
 
-<b>❯ cat fun_fact.txt</b>
-the carp is a whale in disguise. 🐋
+<b>❯ cat fun.txt</b>
+basketball · league of legends
 
 <b>❯ ls links/</b>
 <a href="https://www.linkedin.com/in/you-li-b4a021274/">linkedin</a>
