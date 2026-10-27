@@ -11,16 +11,21 @@
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/banner-dark.svg">
-    <img alt="cs @ nyu courant: a pixel whale swimming through the Chrome dino game" src="assets/banner-light.svg" width="100%">
+    <img alt="A pixel whale swimming through the Chrome dino game" src="assets/banner-light.svg" width="100%">
   </picture>
 </p>
 
-<p align="center">
-  <code>ml systems · accelerator kernels · agents</code>
-  <br>
-  <code>off-screen: basketball · league of legends</code>
-  <br>
-  <code>the whale is a carp in disguise 🐟</code>
-  <br><br>
-  <code>links:</code> <a href="https://www.linkedin.com/in/you-li-b4a021274/"><code>linkedin</code></a>
-</p>
+<pre>
+<b>~/you-li</b> <i>main</i>
+<b>❯ whoami</b>
+you li · cs @ nyu courant
+
+<b>❯ cat interests.txt</b>
+ml systems · accelerator kernels · agents · basketball · league of legends
+
+<b>❯ cat fun_fact.txt</b>
+the whale is a carp in disguise. 🐟
+
+<b>❯ ls links/</b>
+<a href="https://www.linkedin.com/in/you-li-b4a021274/">linkedin</a>
+</pre>
