@@ -15,7 +15,7 @@
 
 <pre>
 <b>~/you-li</b> <i>main</i>
-<b>❯ neofetch</b>
+<b>❯ introduction</b>
                                    <b>you@li</b>
                 z z                ------
              .-'''-.  _            <b>school</b>   cs @ nyu courant
