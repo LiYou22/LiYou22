@@ -15,9 +15,13 @@
   </picture>
 </p>
 
-<p align="center">
-  <a href="https://www.linkedin.com/in/you-li-b4a021274/"><picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/link-linkedin-dark.svg">
-    <img alt="LinkedIn" src="assets/link-linkedin-light.svg">
-  </picture></a>
-</p>
+<pre>
+$ whoami
+you li · cs @ nyu courant
+$ cat interests.txt
+ml systems · accelerator kernels · agents · basketball · league of legends
+$ cat fun_fact.txt
+the whale is a carp in disguise. 🐟
+$ ls links/
+<a href="https://www.linkedin.com/in/you-li-b4a021274/">linkedin</a>
+</pre>
