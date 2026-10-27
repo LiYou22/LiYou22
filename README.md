@@ -17,7 +17,7 @@
 
 <p align="center">
   <a href="https://www.linkedin.com/in/you-li-b4a021274/"><picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/links-dark.svg">
-    <img alt="LinkedIn" src="assets/links-light.svg">
+    <source media="(prefers-color-scheme: dark)" srcset="assets/link-linkedin-dark.svg">
+    <img alt="LinkedIn" src="assets/link-linkedin-light.svg">
   </picture></a>
 </p>
