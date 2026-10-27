@@ -2,13 +2,12 @@
 
 The Chrome offline dino game, underwater and in blue: the seabed scrolls by
 like the dino's ground, and the whale swims through, rising over tall kelp and
-dipping under jellyfish, trailing bubbles while the score ticks up. The dark
-theme is the game's night mode, with a moon above the surface.
+dipping under jellyfish, trailing bubbles. The scoreboard is real: fish fed by
+visitors on the left; on the right HI is my best day and the score rolls up to
+this year's contributions. The dark theme is the game's night mode, with a moon.
 """
 
-from pathlib import Path
-
-from pixel import FONT, THEMES, WHALE, bitmap, mono_whale, rect, svg
+from pixel import FISH, FONT, THEMES, WHALE, bitmap, mono_whale, rect, svg, text, text_width
 
 W, H = 900, 180
 PX = 4  # sprite pixel size
@@ -87,29 +86,46 @@ def swim_css():
     return f"@keyframes depth {{ {body} }}"
 
 
-def score(p, x, y, s):
-    """'HI 01024' then a five-digit odometer: each digit is a 0-9 strip scrolled under a clip."""
-    parts = []
-    for i, ch in enumerate("HI 01024"):
-        parts += bitmap(FONT[ch], x + i * 6 * s, y, s, p["muted"])
+COUNT_UP_S = 3
+CLOUD_X = (150, W - 350)
+
+
+def odometer(p, x, y, s, value, prefix):
+    """Five digits that roll up from 00000 to `value` once, then hold.
+
+    Each digit is a 0-9 strip scrolled under a clip with steps(10); a fractional
+    iteration count leaves every strip parked on its final digit.
+    """
     slot = 8 * s
-    css = []
-    x0 = x + 9 * 6 * s
+    parts, css = [], []
     for k in range(5):
-        dx = x0 + k * 6 * s
+        dx = x + k * 6 * s
         digits = []
-        for d in range(11):
-            digits += bitmap(FONT[str(d % 10)], dx, y + d * slot, s, p["fg"])
-        css.append(f".d{k} {{ animation: odo {0.1 * 10 ** (5 - k):g}s steps(10) infinite; }}")
+        for d in range(10):
+            digits += bitmap(FONT[str(d)], dx, y + d * slot, s, p["fg"])
+        cycles = value / 10 ** (5 - k)
+        if cycles:
+            css.append(f".{prefix}{k} {{ animation: odo {COUNT_UP_S / cycles:.4f}s steps(10) {cycles + 1e-4:.4f} forwards; }}")
         parts.append(
-            f'<clipPath id="c{k}"><rect x="{dx}" y="{y}" width="{5 * s}" height="{7 * s}"/></clipPath>'
-            f'<g clip-path="url(#c{k})"><g class="d{k}">{"".join(digits)}</g></g>'
+            f'<clipPath id="{prefix}c{k}"><rect x="{dx}" y="{y}" width="{5 * s}" height="{7 * s}"/></clipPath>'
+            f'<g clip-path="url(#{prefix}c{k})"><g class="{prefix}{k}">{"".join(digits)}</g></g>'
         )
-    css.append(f"@keyframes odo {{ to {{ transform: translateY(-{10 * slot}px); }} }}")
     return "".join(parts), "\n".join(css)
 
 
-def render(theme):
+def scoreboard(p, stats, s=3):
+    """Top left: fish fed so far. Top right: HI = best day, then the year's contributions."""
+    parts = bitmap(FISH, 20, 14, s, p["fg"])
+    parts += text(f"X{min(stats['fed'], 999):03d}", 20 + 10 * s + 6, 12, s, p["muted"])
+    x = W - 20 - text_width("HI 00000 00000", s)
+    parts += text(f"HI {min(stats['best'], 99999):05d}", x, 12, s, p["muted"])
+    total, css = odometer(p, x + 9 * 6 * s, 12, s, min(stats["total"], 99999), "t")
+    css += f"\n@keyframes odo {{ to {{ transform: translateY(-{10 * 8 * s}px); }} }}"
+    return "".join(parts) + total, css
+
+
+def render(theme, stats):
+    """stats: best (max contributions in a day), total (contributions this year), fed (fish fed)."""
     p = THEMES[theme]
     swim = "".join(
         f'<g class="alt a{i}">{"".join(bitmap(mono_whale(i == 1), WHALE_X, CRUISE_Y, PX, p["fg"]))}</g>'
@@ -122,11 +138,13 @@ def render(theme):
     )
     clouds = []
     for dx in (0, W):
-        clouds += bitmap(CLOUD, 140 + dx, 10, 2, p["soft"]) + bitmap(CLOUD, 420 + dx, 22, 2, p["soft"])
-    sky = [f'<g class="clouds">{"".join(clouds)}</g>']
+        clouds += bitmap(CLOUD, 200 + dx, 10, 2, p["soft"]) + bitmap(CLOUD, 470 + dx, 22, 2, p["soft"])
+    # clouds drift only through the middle of the sky so they never cross the scoreboards
+    sky = [f'<clipPath id="sky"><rect x="{CLOUD_X[0]}" y="0" width="{CLOUD_X[1] - CLOUD_X[0]}" height="{SURFACE}"/></clipPath>'
+           f'<g clip-path="url(#sky)"><g class="clouds">{"".join(clouds)}</g></g>']
     if theme == "dark":
-        sky += bitmap(MOON, 40, 10, 3, p["fg"])
-    board, board_css = score(p, W - 330, 12, 3)
+        sky += bitmap(MOON, 330, 10, 3, p["fg"])
+    board, board_css = scoreboard(p, stats)
 
     parts = [
         rect(0, SURFACE, W, SEABED - SURFACE, p["water"]),
@@ -150,10 +168,3 @@ def render(theme):
         board_css,
     ])
     return svg(W, H, "A pixel whale swimming through the Chrome dino game", style, parts)
-
-
-if __name__ == "__main__":
-    out = Path(__file__).resolve().parent.parent / "assets"
-    out.mkdir(exist_ok=True)
-    for t in THEMES:
-        (out / f"banner-{t}.svg").write_text(render(t))

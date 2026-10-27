@@ -1,0 +1,59 @@
+name: render
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+# feeds that land together must not race on data/feed.json
+concurrency:
+  group: render
+  cancel-in-progress: false
+
+jobs:
+  render:
+    if: github.event_name != 'issues' || startsWith(github.event.issue.title, 'feed')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Feed the whale
+        if: github.event_name == 'issues'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FEEDER: ${{ github.event.issue.user.login }}
+          ISSUE: ${{ github.event.issue.number }}
+        run: |
+          if python3 scripts/feed.py data/feed.json "$FEEDER"; then
+            msg="🐋 Nom! Thanks for the fish, @$FEEDER. The counter on the profile goes up in a minute."
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data/feed.json
+            git commit -m "feed: $FEEDER"
+            git push
+          else
+            msg="🐋 Still full from your fish today, @$FEEDER. Come back tomorrow!"
+          fi
+          gh issue comment "$ISSUE" --body "$msg"
+          gh issue close "$ISSUE"
+
+      - run: python3 scripts/render.py dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_USER: ${{ github.repository_owner }}
+
+      - uses: crazy-max/ghaction-github-pages@v4
+        with:
+          target_branch: output
+          build_dir: dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
