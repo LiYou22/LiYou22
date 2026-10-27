@@ -32,5 +32,5 @@
                                    <a href="https://github.com/LiYou22/first-author-filter">first-author-filter</a>  chrome ext: first-author filter for google scholar
                                    <a href="https://github.com/LiYou22/Text-to-Medical-Images-Synthesis">xray-diffusion</a>       text-conditioned diffusion for chest x-rays
 
-<b>❯</b> █
+<b>❯</b> <picture><source media="(prefers-color-scheme: dark)" srcset="assets/cursor-dark.svg"><img alt="█" src="assets/cursor-light.svg" height="16"></picture>
 </pre>
