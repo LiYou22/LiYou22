@@ -1,10 +1,8 @@
 <!--
-                  .
-                 ":"
-               ___:____     |"\/"|
-             ,'        `.    \  /
-             |  O        \___/  |
-           ~^~^~^~^~^~^~^~^~^~^~^~^~
+        z z
+     .-'''-.  _
+    ( -  ‿  )/ )
+     '-...-'\_/
 
         you found the whale. hi there!
 -->
@@ -17,15 +15,11 @@
 
 <pre>
 <b>~/you-li</b> <i>main</i>
-<b>❯ whoami</b>
-you li · cs @ nyu courant
-
-<b>❯ cat interests.txt</b>
-ml systems · accelerator kernels · agents
-
-<b>❯ cat fun.txt</b>
-basketball · league of legends
-
-<b>❯ ls links/</b>
-<a href="https://www.linkedin.com/in/you-li-b4a021274/">linkedin</a>
+<b>❯ neofetch</b>
+                   <b>you@li</b>
+     z z           ------
+  .-'''-.  _       <b>school</b>   cs @ nyu courant
+ ( -  ‿  )/ )      <b>focus</b>    ml systems · accelerator kernels · agents
+  '-...-'\_/       <b>fun</b>      basketball · league of legends
+                   <b>links</b>    <a href="https://www.linkedin.com/in/you-li-b4a021274/">linkedin</a>
 </pre>
