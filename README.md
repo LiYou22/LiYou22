@@ -37,6 +37,7 @@
              .-'''-.  _            <a href="https://ask-whale.ask-whale.workers.dev/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/ask-dark.svg"><img alt="[ ask me anything about my work ]" src="assets/ask-light.svg" height="22"></picture></a>
             ( o  ‿  )/ )           a small agent that knows my projects. ask it anything.
              '-...-'\_/
+<!-- blinking prompt, kept for later:
 
 <b>❯</b> <picture><source media="(prefers-color-scheme: dark)" srcset="assets/cursor-dark.svg"><img alt="█" src="assets/cursor-light.svg" height="16"></picture>
-</pre>
+--></pre>
