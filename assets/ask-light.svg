@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="22" viewBox="0 0 360 22" role="img" aria-label="ask me anything about my work">
+  <style>text { font: 12.5px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; dominant-baseline: central; }</style>
+  <rect x="0.5" y="0.5" width="359" height="21" rx="5" fill="#ffffff" stroke="#d1d9e0"/>
+  <rect x="9" y="5" width="7" height="12" fill="#1f2328">
+    <animate attributeName="opacity" values="1;0" dur="1.06s" calcMode="discrete" repeatCount="indefinite"/>
+  </rect>
+  <text x="22" y="11.5" fill="#59636e">ask me anything about my work</text>
+  <text x="350" y="11.5" fill="#0969da" text-anchor="end">↵ ask</text>
+</svg>

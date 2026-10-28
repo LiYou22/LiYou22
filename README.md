@@ -32,5 +32,12 @@
                                    <a href="https://github.com/LiYou22/first-author-filter">first-author-filter</a>  chrome ext: first-author filter for google scholar
                                    <a href="https://github.com/LiYou22/Text-to-Medical-Images-Synthesis">xray-diffusion</a>       text-conditioned diffusion for chest x-rays
 
+<b>❯ ask-whale</b>
+                                   <b>~/ask</b>
+                ? ?                -----
+             .-'''-.  _            <a href="https://liyou22.github.io/ask-whale/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/ask-dark.svg"><img alt="[ ask me anything about my work ]" src="assets/ask-light.svg" height="22"></picture></a>
+            ( o  ‿  )/ )           a small agent that knows my projects. ask it anything.
+             '-...-'\_/
+
 <b>❯</b> <picture><source media="(prefers-color-scheme: dark)" srcset="assets/cursor-dark.svg"><img alt="█" src="assets/cursor-light.svg" height="16"></picture>
 </pre>
