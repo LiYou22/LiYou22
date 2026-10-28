@@ -34,7 +34,7 @@
 <b>❯ ask-whale</b>
                                    <b>~/ask</b>
                 ? ?                -----
-             .-'''-.  _            <a href="https://liyou22.github.io/ask-whale/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/ask-dark.svg"><img alt="[ ask me anything about my work ]" src="assets/ask-light.svg" height="22"></picture></a>
+             .-'''-.  _            <a href="https://ask-whale.ask-whale.workers.dev/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/ask-dark.svg"><img alt="[ ask me anything about my work ]" src="assets/ask-light.svg" height="22"></picture></a>
             ( o  ‿  )/ )           a small agent that knows my projects. ask it anything.
              '-...-'\_/
 
