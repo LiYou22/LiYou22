@@ -29,7 +29,6 @@
              .-'''-.  _            <a href="https://github.com/LiYou22/kernel-agent">kernel-agent</a>         small llm writes verified tiled kernels on trainium
             ( ^  ‿  )/ )           <a href="https://github.com/LiYou22/raft-go">raft-go</a>              raft consensus in go
              '-...-'\_/            <a href="https://github.com/LiYou22/earth">earth</a>                real-time earth–moon–sun sim · three.js + glsl
-                                   <a href="https://github.com/LiYou22/first-author-filter">first-author-filter</a>  chrome ext: first-author filter for google scholar
                                    <a href="https://github.com/LiYou22/Text-to-Medical-Images-Synthesis">xray-diffusion</a>       text-conditioned diffusion for chest x-rays
 
 <b>❯</b> <picture><source media="(prefers-color-scheme: dark)" srcset="assets/cursor-dark.svg"><img alt="█" src="assets/cursor-light.svg" height="16"></picture>
